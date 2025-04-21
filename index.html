@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ReLoop - Circular Economy Platform</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: #e9fdf6;
+      color: #2e2e2e;
+      overflow-x: hidden;
+    }
+
+    header {
+      background-color: #ffffff;
+      padding: 20px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      animation: fadeIn 1s ease-in;
+    }
+
+    header .logo img {
+      height: 125px;
+    }
+
+    nav a {
+      margin-left: 25px;
+      text-decoration: none;
+      color: #1c8c63;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #147c54;
+    }
+
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 60px;
+      background: linear-gradient(120deg, #e0f7ef, #d2f1e5);
+      animation: slideIn 1.2s ease;
+    }
+
+    .hero-text {
+      max-width: 50%;
+    }
+
+    .hero-text h1 {
+      font-size: 3rem;
+      color: #1c8c63;
+      margin-bottom: 20px;
+    }
+
+    .hero-text p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    .hero-text button {
+      background-color: #1c8c63;
+      color: #fff;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .hero-text button:hover {
+      background-color: #147c54;
+    }
+
+    .hero-img img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 16px;
+    }
+
+    .features {
+      padding: 60px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
+      background: #fff;
+      animation: fadeIn 1.4s ease;
+    }
+
+    .feature {
+      background: #f4fdfb;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      transition: transform 0.3s ease;
+    }
+
+    .feature:hover {
+      transform: translateY(-5px);
+    }
+
+    .feature h3 {
+      color: #1c8c63;
+      margin-bottom: 15px;
+    }
+
+    .feature p {
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    footer {
+      padding: 30px 60px;
+      text-align: center;
+      background: #e0f7ef;
+      color: #1c8c63;
+      font-weight: 500;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @media screen and (max-width: 900px) {
+      .hero {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .hero-text, .hero-img {
+        max-width: 100%;
+      }
+    }
+  </style>
+  <script>
+    function goToLogin() {
+      window.location.href = 'login.html';
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="logo.png" alt="ReLoop Logo" />
+    </div>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="#about">About</a>
+      <a href="#login" onclick="goToLogin()">Login</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Redefine Waste. Power a Circular Future.</h1>
+      <p>Connect with businesses and innovators to turn waste into opportunity. Discover sustainable matches, reduce environmental impact, and create value from what you throw away.</p>
+      <button onclick="goToLogin()">Get Started</button>
+    </div>
+    <div class="hero-img">
+      <img src="logo.png" alt="ReLoop Interface Preview">
+    </div>
+  </section>
+
+  <section class="features" id="features">
+    <div class="feature">
+      <h3>Smart Waste Matching</h3>
+      <p>AI-powered engine finds the best use for your by-products and connects you to relevant businesses.</p>
+    </div>
+    <div class="feature">
+      <h3>Impact Analytics</h3>
+      <p>Track your CO₂ savings, reduced landfill contribution, and material reuse rate in real-time.</p>
+    </div>
+    <div class="feature">
+      <h3>Verified Ecosystem</h3>
+      <p>Partner with verified, sustainability-driven businesses and build a reliable reuse network.</p>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 ReLoop. Building the future, one loop at a time.
+  </footer>
+</body>
+</html>
+

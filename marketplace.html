@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ReLoop Marketplace</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: #f0f4f3;
+      color: #2e2e2e;
+    }
+
+    header {
+      background-color: #e0f2f1; /* soft green */
+      padding: 20px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+
+    header .logo img {
+      height: 125px;
+    }
+
+    nav a {
+      margin-left: 15px;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 10px 16px;
+      border-radius: 8px;
+      background-color: #1c8c63;
+      color: white;
+      transition: background-color 0.3s ease;
+    }
+
+    nav a:hover {
+      background-color: #156f4f;
+    }
+
+    .marketplace {
+      padding: 40px 60px;
+    }
+
+    .marketplace h1 {
+      color: #1c8c63;
+      margin-bottom: 20px;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .filters input, .filters select {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      min-width: 200px;
+    }
+
+    .companies {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h3 {
+      color: #1c8c63;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: white;
+      background: #4caf50;
+    }
+
+    .buying { background: #2196f3; }
+    .selling { background: #ff9800; }
+    .plastic { background: #9c27b0; }
+    .metal { background: #607d8b; }
+    .organic { background: #8bc34a; }
+    .e-waste { background: #f44336; }
+  </style>
+  <script>
+    function filterCompanies() {
+      const category = document.getElementById('categoryFilter').value;
+      const type = document.getElementById('typeFilter').value;
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      const cards = document.querySelectorAll('.card');
+
+      cards.forEach(card => {
+        const tags = card.dataset.tags;
+        const name = card.querySelector('h3').innerText.toLowerCase();
+        const matchesCategory = category === 'all' || tags.includes(category);
+        const matchesType = type === 'all' || tags.includes(type);
+        const matchesSearch = name.includes(search);
+
+        if (matchesCategory && matchesType && matchesSearch) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="logo.png" alt="ReLoop Logo">
+    </div>
+    <nav>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="analytics.html">Analytics</a>
+      <a href="index.html">Logout</a>
+    </nav>
+  </header>
+
+  <section class="marketplace">
+    <h1>Marketplace</h1>
+    <div class="filters">
+      <input type="text" id="searchInput" placeholder="Search companies..." oninput="filterCompanies()">
+      <select id="categoryFilter" onchange="filterCompanies()">
+        <option value="all">All Categories</option>
+        <option value="buying">Buying</option>
+        <option value="selling">Selling</option>
+      </select>
+      <select id="typeFilter" onchange="filterCompanies()">
+        <option value="all">All Waste Types</option>
+        <option value="plastic">Plastic</option>
+        <option value="metal">Metal</option>
+        <option value="organic">Organic</option>
+        <option value="e-waste">E-Waste</option>
+      </select>
+    </div>
+
+    <div class="companies">
+      <div class="card" data-tags="buying plastic">
+        <h3>EcoPlast Pvt Ltd</h3>
+        <p>Specialized in recycling plastic waste into reusable raw materials.</p>
+        <div class="tags">
+          <span class="tag buying">Buying</span>
+          <span class="tag plastic">Plastic</span>
+        </div>
+      </div>
+
+      <div class="card" data-tags="selling organic">
+        <h3>AgriLoop Co.</h3>
+        <p>Offers high-quality organic compost made from food waste.</p>
+        <div class="tags">
+          <span class="tag selling">Selling</span>
+          <span class="tag organic">Organic</span>
+        </div>
+      </div>
+
+      <div class="card" data-tags="buying metal">
+        <h3>MetRecycle Inc.</h3>
+        <p>Buying scrap metal to convert into industrial-grade products.</p>
+        <div class="tags">
+          <span class="tag buying">Buying</span>
+          <span class="tag metal">Metal</span>
+        </div>
+      </div>
+
+      <div class="card" data-tags="selling e-waste">
+        <h3>ElectroGreen</h3>
+        <p>Certified seller of refurbished e-waste and electronic components.</p>
+        <div class="tags">
+          <span class="tag selling">Selling</span>
+          <span class="tag e-waste">E-Waste</span>
+        </div>
+      </div>
+
+      <div class="card" data-tags="buying organic">
+        <h3>BioHarvest Ltd.</h3>
+        <p>Seeking organic waste for biofuel production and composting.</p>
+        <div class="tags">
+          <span class="tag buying">Buying</span>
+          <span class="tag organic">Organic</span>
+        </div>
+      </div>
+
+      <div class="card" data-tags="selling metal">
+        <h3>ScrapHub Solutions</h3>
+        <p>Supplier of high-quality metal scraps for reuse in manufacturing.</p>
+        <div class="tags">
+          <span class="tag selling">Selling</span>
+          <span class="tag metal">Metal</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

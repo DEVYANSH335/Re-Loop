@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ReLoop Analytics</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: #f0f4f3;
+      color: #2e2e2e;
+    }
+
+    header {
+      background-color: #e0f7ef;
+      padding: 20px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+
+    header .logo img {
+      height: 125px;
+    }
+
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: white;
+      background-color: #1c8c63;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: background-color 0.3s ease;
+    }
+
+    nav a:hover {
+      background-color: #166f4e;
+    }
+
+    .analytics {
+      padding: 50px 60px;
+    }
+
+    .analytics h1 {
+      font-size: 2.8rem;
+      color: #1c8c63;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .charts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+      gap: 40px;
+    }
+
+    .card {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.07);
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h2 {
+      color: #1c8c63;
+      margin-bottom: 20px;
+      font-size: 1.4rem;
+      text-align: center;
+    }
+
+    canvas {
+      width: 100% !important;
+      height: 300px !important;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="logo.png" alt="ReLoop Logo">
+    </div>
+    <nav>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="marketplace.html">Marketplace</a>
+      <a href="index.html">Logout</a>
+    </nav>
+  </header>
+
+  <section class="analytics">
+    <h1>Your Impact Analytics</h1>
+    <div class="charts">
+      <div class="card">
+        <h2>CO₂ Savings</h2>
+        <canvas id="co2Chart"></canvas>
+      </div>
+
+      <div class="card">
+        <h2>Landfill Reduction</h2>
+        <canvas id="landfillChart"></canvas>
+      </div>
+
+      <div class="card">
+        <h2>Material Reuse Rate</h2>
+        <canvas id="reuseChart"></canvas>
+      </div>
+
+      <div class="card">
+        <h2>You vs Other Users</h2>
+        <canvas id="comparisonChart"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Helper: gradient creator
+    function createGradient(ctx, colorStart, colorEnd) {
+      const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+      gradient.addColorStop(0, colorStart);
+      gradient.addColorStop(1, colorEnd);
+      return gradient;
+    }
+
+    // CO₂ Chart
+    const co2Ctx = document.getElementById("co2Chart").getContext("2d");
+    new Chart(co2Ctx, {
+      type: "doughnut",
+      data: {
+        labels: ["You", "Remaining"],
+        datasets: [{
+          data: [3500, 1500],
+          backgroundColor: ["#4caf50", "#ffeb3b"],
+          borderColor: "#fff",
+          borderWidth: 2
+        }]
+      },
+      options: {
+        plugins: {
+          legend: { position: 'bottom' },
+          tooltip: {
+            callbacks: {
+              label: function (context) {
+                return `${context.label}: ${context.raw} kg CO₂`;
+              }
+            }
+          }
+        },
+        cutout: "65%"
+      }
+    });
+
+    // Landfill Reduction Chart
+    const landfillCtx = document.getElementById("landfillChart").getContext("2d");
+    new Chart(landfillCtx, {
+      type: "bar",
+      data: {
+        labels: ["You"],
+        datasets: [{
+          label: "kg Diverted",
+          data: [12000],
+          backgroundColor: createGradient(landfillCtx, "#1c8c63", "#4db6ac"),
+          borderRadius: 10
+        }]
+      },
+      options: {
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+
+    // Reuse Rate Chart
+    const reuseCtx = document.getElementById("reuseChart").getContext("2d");
+    new Chart(reuseCtx, {
+      type: "pie",
+      data: {
+        labels: ["Reused", "Wasted"],
+        datasets: [{
+          data: [78, 22],
+          backgroundColor: ["#4caf50", "#f44336"],
+          borderColor: "#fff",
+          borderWidth: 2
+        }]
+      },
+      options: {
+        plugins: {
+          legend: { position: "bottom" },
+          tooltip: {
+            callbacks: {
+              label: function (context) {
+                return `${context.label}: ${context.raw}%`;
+              }
+            }
+          }
+        }
+      }
+    });
+
+    // Comparison Chart
+    const compCtx = document.getElementById("comparisonChart").getContext("2d");
+    new Chart(compCtx, {
+      type: "bar",
+      data: {
+        labels: ["CO₂ Saved", "Landfill Diverted", "Reuse Rate"],
+        datasets: [
+          {
+            label: "You",
+            data: [3500, 12000, 78],
+            backgroundColor: ["#00c853", "#4caf50", "#8bc34a"],
+            borderRadius: 8
+          },
+          {
+            label: "Other Users (avg)",
+            data: [2200, 8500, 61],
+            backgroundColor: ["#29b6f6", "#03a9f4", "#0288d1"],
+            borderRadius: 8
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: "bottom"
+          }
+        },
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
