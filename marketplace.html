@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ReLoop Marketplace</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
   <style>
     * {
       margin: 0;
@@ -19,11 +19,13 @@
     }
 
     header {
-      background-color: #e0f2f1; /* soft green */
-      padding: 20px 60px;
+      background-color: #e0f2f1;
+      padding: 20px 40px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
       box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     }
 
@@ -31,14 +33,20 @@
       height: 125px;
     }
 
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
     nav a {
-      margin-left: 15px;
       text-decoration: none;
       font-weight: 500;
       padding: 10px 16px;
       border-radius: 8px;
       background-color: #1c8c63;
       color: white;
+      font-size: 1rem;
       transition: background-color 0.3s ease;
     }
 
@@ -47,22 +55,26 @@
     }
 
     .marketplace {
-      padding: 40px 60px;
+      padding: 30px 20px;
     }
 
     .marketplace h1 {
       color: #1c8c63;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
+      text-align: center;
+      font-size: 2rem;
     }
 
     .filters {
       display: flex;
       flex-wrap: wrap;
-      gap: 20px;
+      gap: 15px;
       margin-bottom: 30px;
+      justify-content: center;
     }
 
-    .filters input, .filters select {
+    .filters input,
+    .filters select {
       padding: 10px;
       border: 1px solid #ccc;
       border-radius: 6px;
@@ -71,13 +83,13 @@
 
     .companies {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
     }
 
     .card {
       background: #ffffff;
-      padding: 30px;
+      padding: 25px;
       border-radius: 12px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.05);
       transition: transform 0.2s;
@@ -90,6 +102,7 @@
     .card h3 {
       color: #1c8c63;
       margin-bottom: 10px;
+      font-size: 1.1rem;
     }
 
     .card p {
@@ -108,7 +121,6 @@
       border-radius: 20px;
       font-size: 0.8rem;
       color: white;
-      background: #4caf50;
     }
 
     .buying { background: #2196f3; }
@@ -117,6 +129,41 @@
     .metal { background: #607d8b; }
     .organic { background: #8bc34a; }
     .e-waste { background: #f44336; }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+      }
+
+      header .logo img {
+        height: 80px;
+      }
+
+      nav {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .marketplace {
+        padding: 20px 15px;
+      }
+
+      .marketplace h1 {
+        font-size: 1.6rem;
+      }
+
+      .filters {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .filters input,
+      .filters select {
+        width: 100%;
+      }
+    }
   </style>
   <script>
     function filterCompanies() {
@@ -132,11 +179,7 @@
         const matchesType = type === 'all' || tags.includes(type);
         const matchesSearch = name.includes(search);
 
-        if (matchesCategory && matchesType && matchesSearch) {
-          card.style.display = 'block';
-        } else {
-          card.style.display = 'none';
-        }
+        card.style.display = (matchesCategory && matchesType && matchesSearch) ? 'block' : 'none';
       });
     }
   </script>
